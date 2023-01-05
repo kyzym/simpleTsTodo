@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import { Todo } from "../types";
 
-interface TodoItemProps {
-  id: string;
-  title: string;
-  completed: boolean;
+interface TodoItemProps extends Todo {
   style?: React.CSSProperties;
+  toggleTodo: (id: Todo["id"]) => void;
+  deleteTodo: (id: Todo["id"]) => void;
 }
 
-const TodoItem = ({ id, title, completed, style = {} }: TodoItemProps) => {
-  const [text, setText] = useState("");
-  const [todos, setTodos] = useState<string[]>([]);
-
+const TodoItem = ({
+  id,
+  title,
+  completed,
+  deleteTodo,
+  toggleTodo,
+  style = {},
+}: TodoItemProps) => {
   return (
-    <li style={{ color: "red", backgroundColor: "white", ...style }}>
-      <input type="checkbox" checked={completed}>
-        <span>{title}</span>
-        <span>&times;</span>
-      </input>
+    <li style={style}>
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={() => toggleTodo(id)}
+      />
+      <span>{title}</span>
+      <span onClick={() => deleteTodo(id)}>&times;</span>
     </li>
   );
 };
