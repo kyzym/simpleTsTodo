@@ -53,7 +53,6 @@ function App() {
   return (
     <div className="App">
       <NewTodoForm handleClick={addTodo} />
-
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </div>
   );
